@@ -10,7 +10,17 @@
 .contenedor_objetos{
 	padding: 5px;
 }
-
+.barra_info{
+	background:green;
+	top:0px;
+	left:0px;
+	box-shadow:white 0px 10px 10px;
+	color:yellow;
+	text-align:center;
+	padding:1px;
+	margin-bottom:5px;
+	border-radius:10px 10px 0px 0px;
+}
 
 /* CONFIGURACION NUEVO MENU DEL SISTEMA.*/
 /* ------------------------------------------------------------------*/

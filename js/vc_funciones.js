@@ -20,14 +20,14 @@ var gckeyid   = "";
 var gckeydesc = "";
 var gcbtkeyid = "";
 var oArSetup = {};
-arsetup_init();
+//arsetup_init();
 // Esta funcion carga los valores del arsetup para efectos de javascript.
 function arsetup_init(){
 	var oRequest = new XMLHttpRequest();
 	// Creando objeto para empaquetado de datos.
 	var oDatos   = new FormData();
 	oDatos.append("accion","JSON")
-	oRequest.open("POST","../menu/menu_arsetup.php",false); 
+	oRequest.open("POST","../modelo/arsetup_crud.php",false); 
 	oRequest.send(oDatos);
 	// desplegando pantalla de menu con su informacion.
 	oArSetup = JSON.parse(oRequest.response);

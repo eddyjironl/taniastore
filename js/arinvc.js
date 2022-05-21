@@ -1,8 +1,7 @@
 var ninvlinmax = 0;
-
 const NOT_ALLOW_DESC = "Descuento aplicado no esta permitido ";
-
 function init(){
+
 	// cargando numero de transsaccion para esta factura temporal
 	//document.getElementById("xtrnno").value = get_trnno();
 	// identificando algunos elementos.
@@ -39,6 +38,7 @@ function init(){
     },false);
 	// ------------------------------------------------------------------------
 	clear_view();
+	arsetup_init();
 }
 function get_tc_rate(){
 	var oRequest = new XMLHttpRequest();
@@ -398,6 +398,8 @@ function guardar(){
 	*/
 }
 function cksum(pcitem){
+
+	//oArSetup
 	// validando el descuento maximo por linea de articulo.
 	if (pcitem != undefined){
 		var lcservno   = pcitem.path[2].cells[0].children[0].value;
@@ -423,7 +425,16 @@ function cksum(pcitem){
 		// costo de la linea 
 		lnsalesamt_u = parseFloat(otabla.rows[i].cells[2].children[0].value) * parseFloat(otabla.rows[i].cells[3].children[0].value);
 		// aplicando el descuento en forma porcentual, si fuera como cantidad solo quitar el 100. y la multiplicacion del moton unitario.
-		lndescamt_u  = lnsalesamt_u * (parseFloat(otabla.rows[i].cells[4].children[0].value)/100);
+		// --------------------------------------------------------------
+		// Aplicando el descuento ya sea de forma Porcentual o Monetaria
+		// --------------------------------------------------------------
+		if (oArSetup.ctypdesc == "P" ){
+			lndescamt_u  = lnsalesamt_u * (parseFloat(otabla.rows[i].cells[4].children[0].value)/100);
+		}else{
+			lndescamt_u  = parseFloat(otabla.rows[i].cells[4].children[0].value);
+		}	
+
+		// --------------------------------------------------------------
 		// aplicando el impuesto de forma porcentual.
 		lntaxamt_u   = (lnsalesamt_u - lndescamt_u) * parseFloat(otabla.rows[i].cells[5].children[0].value)/100;
 		otabla.rows[i].cells[6].innerText = lnsalesamt_u.toFixed(2);

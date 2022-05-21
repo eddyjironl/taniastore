@@ -4,6 +4,7 @@ function init(){
         get_menu_list("syscomp","showmenulist","cia_desc","select_company");
     },false);
 	document.getElementById("cmodule_select").value = "AR";
+	window.pie = "cabron te estoy viendo";
 	change_module();
 }	
 function select_company(){
@@ -50,6 +51,15 @@ function change_module(){
 	omenu.innerHTML = "";
 	omenu_general   = getmodulemenu(document.getElementById("cmodule_select").value);
 	omenu.innerHTML = omenu_general;
+	// 21/05/2022
+	// configuracion del modulo up load.
+	//------------------------------------
+	// llamando todos los procesos de inicializacion del modulo escojido
+/*	if (document.getElementById("cmodule_select").value == "AR" || 
+	    document.getElementById("cmodule_select").value == "IN"){
+		arsetup_init();
+	}
+*/
 	config_click_menu(document.getElementById("cmodule_select").value);
 }
 function config_click_menu(pcmodule){
