@@ -17,11 +17,7 @@
 					<script>get_btmenu("btcadjno","Lista de requisas"); </script>				
 			</fieldset>
 		</form>
-		
-		<script>get_xm_menu();
-				get_msg();
-				//get_btdtrn("btprint2","Imprimiendo reporte", "../reports/rpt_arinvc.php");aradjm_r
-		</script>
-		
+		<div id="showmenulist"></div>			
+		<script>get_msg();</script>
 	</body>
 </html>

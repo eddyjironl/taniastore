@@ -87,6 +87,37 @@ delete from syperm;
     ("ARSERM","04","Desc Maximo","ndesc",100,"AR"),
     ("ARSERM","05","Impuesto","ntax",100,"AR");
 
+  SET @lcSelect = " select aradjm.cadjno, 
+                           aradjm.crefno, 
+                           if(aradjm.cstatus='OP','Activa','Anulada') as cstatus ,
+		                       arcate.cdesc,
+                           aradjm.dtrndate,
+                           arwhse.cdesc as cdescwh,
+                           aradjm.usuario
+                    from aradjm
+                    left outer join arcate on arcate.ccateno = aradjm.ccateno
+                    left outer join arwhse on arwhse.cwhseno = aradjm.cwhseno ";
+
+  INSERT INTO ksschgrd(calias,corder,cheader,mcolvalue,ncolwidth,cmodule)
+    VALUES("ARADJM","00","Listado de Requisas",@lcSelect,0,"AR"),
+    ("ARADJM","01","Requisa No","cadjno",60,"AR"),
+    ("ARADJM","02","Referencia","crefno",150,"AR"),
+    ("ARADJM","03","Estado","cstatus",60,"AR"),
+    ("ARADJM","04","Tipo Requisa","cdesc",150,"AR"),
+    ("ARADJM","05","Fecha","dtrndate",60,"AR"),
+    ("ARADJM","06","Bodega","cdescwh",100,"AR"),
+    ("ARADJM","07","Usuario","usuario",100,"AR");
+  
+  /* Listado de Apartados */
+  SET @lcSelect = " select capano,cfullname, ctel, dtrndate from arapam  ";
+  INSERT INTO ksschgrd(calias,corder,cheader,mcolvalue,ncolwidth,cmodule)
+    VALUES("ARAPAM","00","Apartado de Articulos",@lcSelect,0,"AR"),
+    ("ARAPAM","01","Apartado No","capano",70,"AR"),
+    ("ARAPAM","02","Nombre de Cliente","cfullname",200,"AR"),
+    ("ARAPAM","03","Telefono","ctel",100,"AR"),
+    ("ARAPAM","04","Fecha","dtrndate",60,"AR"),
+    ("ARAPAM","05","Estado","cstatus",60,"AR");
+
 
 
 /*  Configuracion del menu del sistema */
@@ -133,6 +164,7 @@ insert into symenu(cmenuid,cdesc,cmodule,cgppmod,cmenhid,cstatus,cview)
     ("tr008","Anulacion de Facturas","AR","TRN","AR01","OP","../view/arvinv.php"),
     ("tr009","Anulacion de Recibos","AR","TRN","AR01","OP","../view/arvcas.php"),
     ("tr010","Anulacion Requisas","AR","TRN","IN01","OP","../view/arvadj.php"),
+    ("tr011","Apartados","AR","TRN","AR01","OP","../view/arapam.php"),
     /* REPORTES*/
     ("rp001","Resumen de Ventas (Moneda)    ","AR","RPT","AR02","OP","../view/arinvt_r.php"),
     ("rp013","Resumen de Ventas (Articulos) ","AR","RPT","AR02","OP","../view/arinvt2_r.php"),
