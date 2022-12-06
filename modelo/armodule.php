@@ -5,6 +5,8 @@
 	if (isset($_POST["program"])){
 		include("vc_funciones.php");
 		$oConn = vc_funciones::get_coneccion("CIA");
+		$oArsetup = vc_funciones::arsetup_init();
+
 		if ($_POST["program"]== "get_sales_amount"){
 			//$lccustno = $_POST["ccustno"];
 			$lccustno = mysqli_real_escape_string($oConn,$_POST["ccustno"]);
@@ -241,7 +243,14 @@ function conf_cxc($poConn,$pccustno){
 						$lnsalesamt_u = $data_inv["nqty"] * $data_inv["nprice"];
 						$lnsalesamt   = $lnsalesamt + $lnsalesamt_u;
 						// descuento % 
-						$lndesamt_u   = $lnsalesamt_u * ($data_inv["ndesc"]/100);  
+						// 26/05/2022
+						// configurando segun el descuento
+						if ($oArsetup["ctypdesc"] == "P"){
+							$lndesamt_u   = $lnsalesamt_u * ($data_inv["ndesc"]/100);  
+						}else{
+							$lndesamt_u   = $data_inv["ndesc"];  
+						}
+						
 						$lndesamt     = $lndesamt + $lndesamt_u ;  
 						// Impuesto
 						$lntaxamt_u   = ($lnsalesamt_u - $lndesamt_u) * ($data_inv["ntax"]/100);  

@@ -2,6 +2,7 @@
 	include("../modelo/armodule.php");
 	include("../modelo/vc_funciones.php");
 	$oConn = vc_funciones::get_coneccion("CIA");
+	$oArsetup2 = vc_funciones::arsetup_init();
 	$lcaccion = $_POST["accion"];
 	$lcinvno  = "";
 	// e)-  Guarda la factura en forma definitiva.
@@ -67,7 +68,14 @@
 					// cantidad bruta por linea.
 					$lnsalesamt_u = $b[$i]['nqty'] * $b[$i]['nprice'] ;
 					// aplicando el descuento porcentual
-					$lndesamt_u   = $lnsalesamt_u * ($b[$i]['ndesc']/100);
+					// 26/05/2022
+					// verificando el tipo de desucuento a aplicar monetario o porcentual
+					if($oArsetup2["ctypdesc"] == "P"){
+						$lndesamt_u   = $lnsalesamt_u * ($b[$i]['ndesc']/100);
+					}
+					else{
+						$lndesamt_u   = ($b[$i]['ndesc']);
+					}
 					// impuesto de venta porcentual.
 					$lntaxamt_u   = ($lnsalesamt_u - $lndesamt_u) * ($b[$i]['ntax']/100);
 					// llevando los valores acumulados.

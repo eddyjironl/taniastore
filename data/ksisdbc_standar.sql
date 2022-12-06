@@ -765,16 +765,16 @@ CREATE TABLE `arwhse` (
 
   /* DETALLE DE APARTADOS DEL SISTEMA PARA TIENDAS*/
 
-  /* Encabazado del apartado*/
- drop table if exists arapam;
+drop table if exists arapam;
   create table arapam(
-    capano int(10) AUTO_INCREMENT unique,
+    capano char(10) not null default '' unique,
     cfullname char(200) default '',
     ctel char(10) default '',
     crespno char(10) default '',
     cstatus char(2) default 'OP',
     dstar date default CURRENT_DATE,
     dend date ,
+    mnotas text default '',
     cinvno char(10) default '',
     usuario char(10) COLLATE utf8_spanish_ci default '',
     fecha date default CURRENT_DATE,
@@ -785,9 +785,9 @@ CREATE TABLE `arwhse` (
   drop table if exists arapad;
   create table arapad(
     cuid int(10) AUTO_INCREMENT unique,
-    capano int(10) default 0,
-    cservno char(20) default '',
-    cdesc char(200) default'',
+    capano char(10) not null default '',
+    cservno char(20) not null default '',
+    cdesc char(200) not null default'',
     nqty decimal(10,2) default 0.00,
     nprice decimal(10,2) default 0.00,
     usuario char(10) COLLATE utf8_spanish_ci default '',
@@ -799,15 +799,14 @@ CREATE TABLE `arwhse` (
   drop table if exists arapap;
   create table arapap(
     cuid int(10) AUTO_INCREMENT unique,
-    capano int(10) default 0 ,
-    cdesc char(200) default'',
+    capano char(10) not null default '' ,
+    cdesc char(200) not null default'',
     npayamt decimal(10,2) default 0.00,
     dtrndate date default CURRENT_DATE,
     usuario char(10) COLLATE utf8_spanish_ci default '',
     fecha date default CURRENT_DATE,
     hora time(6) default CURRENT_TIME
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-  
  
 
 COMMIT;

@@ -109,16 +109,15 @@ delete from syperm;
     ("ARADJM","07","Usuario","usuario",100,"AR");
   
   /* Listado de Apartados */
-  SET @lcSelect = " select capano,cfullname, ctel, dtrndate from arapam  ";
-  INSERT INTO ksschgrd(calias,corder,cheader,mcolvalue,ncolwidth,cmodule)
-    VALUES("ARAPAM","00","Apartado de Articulos",@lcSelect,0,"AR"),
+  SET @lcSelect = ' select capano,cfullname, ctel, if(cstatus="OP","activa","entregado") as cstatus, dstar, dend from arapam  ';
+INSERT INTO ksschgrd(calias,corder,cheader,mcolvalue,ncolwidth,cmodule)
+    VALUES("ARAPAM","00","Listado de Apartado de Articulos",@lcSelect,0,"AR"),
     ("ARAPAM","01","Apartado No","capano",70,"AR"),
-    ("ARAPAM","02","Nombre de Cliente","cfullname",200,"AR"),
-    ("ARAPAM","03","Telefono","ctel",100,"AR"),
-    ("ARAPAM","04","Fecha","dtrndate",60,"AR"),
-    ("ARAPAM","05","Estado","cstatus",60,"AR");
-
-
+    ("ARAPAM","02","Estado","cstatus",60,"AR"),
+    ("ARAPAM","02","Nombre de Cliente","cfullname",170,"AR"),
+    ("ARAPAM","03","Telefono","ctel",60,"AR"),
+    ("ARAPAM","04","Inicio","dstar",75,"AR"),
+    ("ARAPAM","05","Final","dend",75,"AR")
 
 /*  Configuracion del menu del sistema */
 
